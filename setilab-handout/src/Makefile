@@ -2,7 +2,7 @@
 # You can pick a different compiler here
 # and also choose different options
 
-CC = gcc -g -Wall
+CC = gcc -Wall -pthread -Ofast -ffast-math -march=native
 AR = ar
 
 all: libfilter.a band_scan pthread-ex parallel-sum-ex
@@ -28,9 +28,9 @@ band_scan: band_scan.c filter.h signal.h timing.h libfilter.a
 # following.  Note the use of the -pthread option
 # which is critical
 #
-#p_band_scan: p_band_scan.c filter.h signal.h timing.h libfilter.a 
-#	    $(CC) -pthread p_band_scan.c -L. -lfilter -lm -o p_band_scan
-#
+p_band_scan: p_band_scan.c filter.h signal.h timing.h libfilter.a 
+	    $(CC) p_band_scan.c -L. -lfilter -lm -o p_band_scan
+
 
 clean-filter: 
 	-rm filter.o signal.o timing.o libfilter.a  band_scan 2>/dev/null || true
